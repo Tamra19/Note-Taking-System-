@@ -1,0 +1,27 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %}
+
+{% block content %}
+<h1 align="center">Notes</h1>
+<ul class="list-group list-group-flush">
+    {% for note in user.notes %}
+    <li class="list-group-item" style="position: relative; padding-right: 40px;"> <!-- extra space for icon -->
+        {{ note.data }}
+        <form method="POST" action="{{ url_for('views.delete_note', id=note.id) }}"
+            style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); margin: 0; padding: 0;">
+            <button type="submit"
+                style="border: none; background: none; color: red; font-size: 20px; cursor: pointer; font-weight: bold;"
+                title="Delete note">
+                &times;
+            </button>
+        </form>
+    </li>
+    {% endfor %}
+</ul>
+<form method="POST">
+    <textarea name="note" id="note" class="form-control"></textarea>
+    <br>
+    <div align="center">
+        <button type="submit" class="btn btn-primary">Add Note</button>
+    </div>
+</form>
+{% endblock %}
